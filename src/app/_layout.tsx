@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 import "react-native-reanimated";
 
-import { Groups } from "../components/Groups";
+import { Groups } from "../screens/Groups";
 
 import "@/src/styles/global.css";
 import { SafeAreaView, StatusBar } from "react-native";
