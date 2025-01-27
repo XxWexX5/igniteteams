@@ -2,9 +2,23 @@ import { View } from "react-native";
 
 import Logo from "@assets/images/logo.svg";
 
-export function Header() {
+import { CaretLeft } from "phosphor-react-native";
+
+import { colors } from "@/src/theme";
+
+interface HeaderProps {
+  hasBack?: boolean;
+}
+
+export function Header({ hasBack = false }: HeaderProps) {
   return (
-    <View className="justify-center items-center">
+    <View className="justify-center items-center flex-row">
+      {hasBack && (
+        <View className="flex-1">
+          <CaretLeft color={colors.neutral.full} size={32} />
+        </View>
+      )}
+
       <Logo />
     </View>
   );

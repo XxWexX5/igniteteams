@@ -15,6 +15,7 @@ export const colors = {
     300: "#7C7C8A",
     200: "#C4C4CC",
     100: "#E1E1E6",
+    "full": "#FFFFFF",
   },
 };
 
