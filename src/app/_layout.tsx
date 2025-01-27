@@ -10,6 +10,7 @@ import { Groups } from "@screens/Groups";
 
 import "@/src/styles/global.css";
 import { SafeAreaView, StatusBar } from "react-native";
+import { Loading } from "../components/Loading";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -25,7 +26,7 @@ export default function RootLayout() {
   }, [loaded]);
 
   if (!loaded) {
-    return null;
+    return <Loading />;
   }
 
   return (
