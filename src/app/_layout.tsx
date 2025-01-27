@@ -31,6 +31,8 @@ export default function RootLayout() {
 
   return (
     <>
+      <SafeAreaView className="bg-neutral-600" />
+
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
