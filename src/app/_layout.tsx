@@ -31,11 +31,13 @@ export default function RootLayout() {
 
   return (
     <>
-      <StatusBar />
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="transparent"
+        translucent
+      />
 
-      <SafeAreaView className="w-screen h-screen justify-center items-center font-roboto">
-        <Groups />
-      </SafeAreaView>
+      <Groups />
     </>
   );
 }
