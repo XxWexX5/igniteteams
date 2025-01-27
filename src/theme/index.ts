@@ -15,13 +15,13 @@ export const colors = {
     300: "#7C7C8A",
     200: "#C4C4CC",
     100: "#E1E1E6",
-    "full": "#FFFFFF",
+    full: "#FFFFFF",
   },
 };
 
 export const fontSize = {
-  sm: "0.972vw",
-  md: "1.111vw",
-  lg: "1.25vw",
-  xl: "1.667vw",
+  sm: "2vw",
+  md: "4.5vw",
+  lg: "5vw",
+  xl: "6.5vw",
 };

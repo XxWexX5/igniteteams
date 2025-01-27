@@ -19,7 +19,9 @@ export function Header({ hasBack = false }: HeaderProps) {
         </View>
       )}
 
-      <Logo />
+      <View>
+        <Logo />
+      </View>
     </View>
   );
 }
