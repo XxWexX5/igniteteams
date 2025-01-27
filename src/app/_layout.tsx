@@ -15,7 +15,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    Roboto: require("../assets/fonts/roboto.ttf"),
   });
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function RootLayout() {
     <>
       <StatusBar />
 
-      <SafeAreaView className="w-screen h-screen justify-center items-center">
+      <SafeAreaView className="w-screen h-screen justify-center items-center font-roboto">
         <Groups />
       </SafeAreaView>
     </>
