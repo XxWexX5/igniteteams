@@ -7,6 +7,7 @@ import { Header } from "@/src/components/Header";
 import { Highlight } from "@/src/components/Highlight";
 import { GroupCard } from "@/src/components/GroupCard";
 import { ListEmpty } from "@/src/components/ListEmpty";
+import { Button } from "@/src/components/Button";
 
 type Group = {
   id: string;
@@ -16,25 +17,35 @@ type Group = {
 export function Groups() {
   const [groups, setGroups] = useState<Group[]>([
     { id: "1", title: "Turma dos lolzeras" },
+    { id: "2", title: "Turma dos lolzeras" },
+    { id: "3", title: "Turma dos lolzeras" },
+    { id: "4", title: "Turma dos lolzeras" },
+    { id: "5", title: "Turma dos lolzeras" },
+    { id: "6", title: "Turma dos lolzeras" },
   ]);
 
   return (
-    <View className="flex-1 w-screen h-screen bg-neutral-600 pt-[3vh]">
+    <View className="flex-1 w-screen h-screen bg-neutral-600 py-[5vh]">
       <Container>
         <Header />
 
         <Highlight title="Turmas" subtitle="jogue com a sua turma" />
 
-        <FlatList
-          data={groups}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => <GroupCard title={item.title} />}
-          ItemSeparatorComponent={() => <View className="h-[2vh]"></View>}
-          ListEmptyComponent={() => (
-            <ListEmpty message="Que tal cadastrar uma turma?" />
-          )}
-          contentContainerStyle={groups.length === 0 && { flex: 1 }}
-        />
+        <View className="flex-1 mb-[3vh]">
+          <FlatList
+            data={groups}
+            showsVerticalScrollIndicator={false}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <GroupCard title={item.title} />}
+            ItemSeparatorComponent={() => <View className="h-[2vh]"></View>}
+            ListEmptyComponent={() => (
+              <ListEmpty message="Que tal cadastrar uma turma?" />
+            )}
+            contentContainerStyle={groups.length === 0 && { flex: 1 }}
+          />
+        </View>
+
+        <Button>Criar nova turma</Button>
       </Container>
     </View>
   );
