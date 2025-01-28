@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
 import Logo from "@assets/images/logo.svg";
 
@@ -14,9 +14,9 @@ export function Header({ hasBack = false }: HeaderProps) {
   return (
     <View className="justify-center items-center flex-row">
       {hasBack && (
-        <View className="flex-1">
+        <TouchableOpacity className="flex-1">
           <CaretLeft color={colors.neutral.full} size={32} />
-        </View>
+        </TouchableOpacity>
       )}
 
       <View>
