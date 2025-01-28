@@ -20,7 +20,7 @@ export const colors = {
 };
 
 export const fontSize = {
-  sm: "2vw",
+  sm: "3vw",
   md: "4.5vw",
   lg: "5vw",
   xl: "6.5vw",

@@ -6,6 +6,7 @@ import { Container } from "@/src/components/Container";
 import { Header } from "@/src/components/Header";
 import { Highlight } from "@/src/components/Highlight";
 import { GroupCard } from "@/src/components/GroupCard";
+import { ListEmpty } from "@/src/components/ListEmpty";
 
 type Group = {
   id: string;
@@ -14,8 +15,7 @@ type Group = {
 
 export function Groups() {
   const [groups, setGroups] = useState<Group[]>([
-    { id: "1", title: "Galera da turma" },
-    { id: "2", title: "Galera da turma 02" },
+    { id: "1", title: "Turma dos lolzeras" },
   ]);
 
   return (
@@ -30,6 +30,10 @@ export function Groups() {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <GroupCard title={item.title} />}
           ItemSeparatorComponent={() => <View className="h-[2vh]"></View>}
+          ListEmptyComponent={() => (
+            <ListEmpty message="Que tal cadastrar uma turma?" />
+          )}
+          contentContainerStyle={groups.length === 0 && { flex: 1 }}
         />
       </Container>
     </View>

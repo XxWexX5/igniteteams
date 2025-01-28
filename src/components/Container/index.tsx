@@ -7,5 +7,5 @@ interface ContainerProps {
 }
 
 export function Container({ children }: ContainerProps) {
-  return <View className="w-full max-w-[85vw] mx-auto">{children}</View>;
+  return <View className="flex-1 w-full max-w-[85vw] mx-auto">{children}</View>;
 }

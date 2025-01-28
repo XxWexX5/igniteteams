@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-import { colors, fontSize } from './src/theme'
+import { colors } from './src/theme'
 
 import { platformSelect } from "nativewind/theme";
 
@@ -10,7 +10,12 @@ module.exports = {
   theme: {
     extend: {
       colors,
-      fontSize,
+      fontSize : {
+        sm: "4vw",
+        md: "4.5vw",
+        lg: "5vw",
+        xl: "6.5vw",
+      },
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],
         system: platformSelect({
