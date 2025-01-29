@@ -10,7 +10,7 @@ interface ButtonProps {
 export function Button({ type = "primary", children }: ButtonProps) {
   return (
     <TouchableOpacity
-      className={`flex-1 min-h-[7vh] max-h-[7vh] rounded-[1.5vw] justify-center items-center ${
+      className={`flex-1 w-full min-h-[7vh] max-h-[7vh] rounded-[1.5vw] justify-center items-center ${
         type === "primary" ? "bg-primary-700" : "bg-secondary-700"
       }`}
     >

@@ -11,6 +11,7 @@ import { Groups } from "@screens/Groups";
 import "@/src/styles/global.css";
 import { SafeAreaView, StatusBar } from "react-native";
 import { Loading } from "../components/Loading";
+import { NewGroup } from "../screens/NewGroup";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -39,7 +40,7 @@ export default function RootLayout() {
         translucent
       />
 
-      <Groups />
+      <NewGroup />
     </>
   );
 }

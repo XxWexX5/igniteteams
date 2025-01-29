@@ -10,7 +10,7 @@ interface HeaderProps {
   hasBack?: boolean;
 }
 
-export function Header({ hasBack = false }: HeaderProps) {
+export function Header({ hasBack }: HeaderProps) {
   return (
     <View className="justify-center items-center flex-row">
       {hasBack && (

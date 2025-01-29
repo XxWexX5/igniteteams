@@ -25,7 +25,7 @@ export function Groups() {
   ]);
 
   return (
-    <View className="flex-1 w-screen h-screen bg-neutral-600 py-[5vh]">
+    <View className="flex-1 w-screen h-screen bg-neutral-600 py-[3vh]">
       <Container>
         <Header />
 
