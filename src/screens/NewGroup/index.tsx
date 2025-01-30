@@ -16,8 +16,8 @@ export function NewGroup() {
         <View className="flex-1 items-center justify-center -mt-[13vh]">
           <UsersThree color={colors.primary[700]} size={70} />
 
-          <View className="w-full gap-[.85vh] justify-center items-center mt-[3vh] mb-[2vh]">
-            <Text className="text-neutral-full font-bold text-lg">
+          <View className="w-full gap-[.85vh] justify-center items-center mt-[2.5vh] mb-[2vh]">
+            <Text className="text-neutral-full font-bold text-xl">
               Nova Turma
             </Text>
 
