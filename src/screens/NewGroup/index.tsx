@@ -1,11 +1,12 @@
 import { Container } from "@/src/components/Container";
 import { Header } from "@/src/components/Header";
-import { View, Text, TextInput } from "react-native";
+import { View, Text } from "react-native";
 
 import { UsersThree } from "phosphor-react-native";
 
 import { colors } from "@/src/theme";
 import { Button } from "@/src/components/Button";
+import { Input } from "@/src/components/Input";
 
 export function NewGroup() {
   return (
@@ -25,10 +26,7 @@ export function NewGroup() {
               crie uma turma para adicionar pessoas
             </Text>
 
-            <TextInput
-              className="mt-[3vh] bg-neutral-700 w-full h-[7vh] rounded-[1.5vw] px-[5vw] text-neutral-full"
-              placeholder="Nome da turma"
-            />
+            <Input />
           </View>
 
           <Button>Criar</Button>
