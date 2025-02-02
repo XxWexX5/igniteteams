@@ -6,12 +6,10 @@ import { useEffect } from "react";
 
 import "react-native-reanimated";
 
-import { Groups } from "@screens/Groups";
-
 import "@/src/styles/global.css";
 import { SafeAreaView, StatusBar } from "react-native";
 import { Loading } from "../components/Loading";
-import { NewGroup } from "../screens/NewGroup";
+import { Players } from "../screens/Players";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -40,7 +38,7 @@ export default function RootLayout() {
         translucent
       />
 
-      <NewGroup />
+      <Players />
     </>
   );
 }
