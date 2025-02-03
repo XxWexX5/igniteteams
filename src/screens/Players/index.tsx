@@ -1,24 +1,52 @@
+import { Button } from "@/src/components/Button";
 import { ButtonIcon } from "@/src/components/ButtonIcon";
 import { Container } from "@/src/components/Container";
 import { Filter } from "@/src/components/Filter";
 import { Header } from "@/src/components/Header";
 import { Highlight } from "@/src/components/Highlight";
 import { Input } from "@/src/components/Input";
+import { ListEmpty } from "@/src/components/ListEmpty";
+import { PlayerCard } from "@/src/components/PlayerCard";
 import { useState } from "react";
 import { View, FlatList, Text } from "react-native";
+
+type Player = {
+  name: string;
+};
 
 type Team = {
   id: string;
   name: string;
   isActive: boolean;
+  players: Player[];
 };
 
 export function Players() {
   const [teams, setTeams] = useState<Team[]>([
-    { id: "1", name: "time a", isActive: false },
-    { id: "2", name: "time b", isActive: false },
-    { id: "3", name: "time c", isActive: false },
-    { id: "4", name: "time d", isActive: false },
+    {
+      id: "1",
+      name: "time a",
+      isActive: false,
+      players: [{ name: "Wevison" }],
+    },
+    {
+      id: "2",
+      name: "time b",
+      isActive: false,
+      players: [],
+    },
+    {
+      id: "3",
+      name: "time c",
+      isActive: false,
+      players: [{ name: "Rodrigo" }],
+    },
+    {
+      id: "4",
+      name: "time d",
+      isActive: false,
+      players: [{ name: "Chrollo" }],
+    },
   ]);
 
   function handleActiveTeam(id: string) {
@@ -70,6 +98,32 @@ export function Players() {
             {teams.length}
           </Text>
         </View>
+
+        <FlatList
+          data={teams}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => {
+            if (item.isActive && item.players.length > 0) {
+              return <PlayerCard name={item?.players[0]?.name} />;
+            }
+
+            return null;
+          }}
+          ListEmptyComponent={({ item }) => {
+            if (item.players.length <= 0) {
+              return <ListEmpty message="Não há pessoas neste time" />;
+            }
+          }}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={[
+            { paddingBottom: 100 },
+            teams.length === 0 && { flex: 1 },
+          ]}
+        />
+
+        <Button type="secondary" className="mb-[2vh]">
+          Remover turma
+        </Button>
       </Container>
     </View>
   );
