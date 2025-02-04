@@ -10,7 +10,6 @@ import "@/src/styles/global.css";
 
 import { SafeAreaView, StatusBar } from "react-native";
 import { Loading } from "../components/Loading";
-import Routes from "../routes";
 import { Stack } from "expo-router";
 
 SplashScreen.preventAutoHideAsync();
