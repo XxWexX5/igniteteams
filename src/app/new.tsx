@@ -8,7 +8,13 @@ import { colors } from "@/src/theme";
 import { Button } from "@/src/components/Button";
 import { Input } from "@/src/components/Input";
 
-export function NewGroup() {
+import { router } from "expo-router";
+
+export default function New() {
+  function create() {
+    router.navigate("/players");
+  }
+
   return (
     <View className="flex-1 w-screen h-screen bg-neutral-600 py-[3vh]">
       <Container>
@@ -29,7 +35,7 @@ export function NewGroup() {
             <Input />
           </View>
 
-          <Button>Criar</Button>
+          <Button onPress={create}>Criar</Button>
         </View>
       </Container>
     </View>

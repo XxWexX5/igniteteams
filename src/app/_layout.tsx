@@ -7,9 +7,11 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 
 import "@/src/styles/global.css";
+
 import { SafeAreaView, StatusBar } from "react-native";
 import { Loading } from "../components/Loading";
-import { Players } from "../screens/Players";
+import Routes from "../routes";
+import { Stack } from "expo-router";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -38,7 +40,11 @@ export default function RootLayout() {
         translucent
       />
 
-      <Players />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="new" />
+        <Stack.Screen name="players" />
+      </Stack>
     </>
   );
 }

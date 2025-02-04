@@ -8,13 +8,14 @@ import { Highlight } from "@/src/components/Highlight";
 import { GroupCard } from "@/src/components/GroupCard";
 import { ListEmpty } from "@/src/components/ListEmpty";
 import { Button } from "@/src/components/Button";
+import { router } from "expo-router";
 
 type Group = {
   id: string;
   title: string;
 };
 
-export function Groups() {
+export default function Index() {
   const [groups, setGroups] = useState<Group[]>([
     { id: "1", title: "Turma dos lolzeras" },
     { id: "2", title: "Turma dos lolzeras" },
@@ -23,6 +24,10 @@ export function Groups() {
     { id: "5", title: "Turma dos lolzeras" },
     { id: "6", title: "Turma dos lolzeras" },
   ]);
+
+  function createGroup() {
+    router.navigate("/new");
+  }
 
   return (
     <View className="flex-1 w-screen h-screen bg-neutral-600 py-[3vh]">
@@ -45,7 +50,7 @@ export function Groups() {
           />
         </View>
 
-        <Button>Criar nova turma</Button>
+        <Button onPress={createGroup}>Criar nova turma</Button>
       </Container>
     </View>
   );

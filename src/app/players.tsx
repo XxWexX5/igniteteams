@@ -21,7 +21,7 @@ type Team = {
   players: Player[];
 };
 
-export function Players() {
+export default function Players() {
   const [teams, setTeams] = useState<Team[]>([
     {
       id: "1",
