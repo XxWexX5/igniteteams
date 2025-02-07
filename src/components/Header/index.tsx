@@ -14,7 +14,7 @@ interface HeaderProps {
 
 export function Header({ hasBack }: HeaderProps) {
   function handleBack() {
-    router.back();
+    router.navigate("/");
   }
 
   return (
