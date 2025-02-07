@@ -22,8 +22,12 @@ type Team = {
   players: Player[];
 };
 
+type RouteParams = {
+  nameGroup: string;
+};
+
 export default function Players() {
-  const { nameGroup } = useLocalSearchParams();
+  const { nameGroup } = useLocalSearchParams<RouteParams>();
 
   const [teams, setTeams] = useState<Team[]>([
     {
@@ -70,7 +74,7 @@ export default function Players() {
         <Header hasBack />
 
         <Highlight
-          title={(nameGroup as string) || ""}
+          title={nameGroup}
           subtitle="adicione agalera e separe os times"
         />
 
