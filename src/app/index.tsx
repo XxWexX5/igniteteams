@@ -25,7 +25,7 @@ export default function Index() {
     { id: "6", title: "Turma dos lolzeras" },
   ]);
 
-  function createGroup() {
+  function handleCreateGroup() {
     router.navigate("/new");
   }
 
@@ -50,7 +50,7 @@ export default function Index() {
           />
         </View>
 
-        <Button onPress={createGroup}>Criar nova turma</Button>
+        <Button onPress={handleCreateGroup}>Criar nova turma</Button>
       </Container>
     </View>
   );

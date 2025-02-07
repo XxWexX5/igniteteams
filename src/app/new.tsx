@@ -11,7 +11,7 @@ import { Input } from "@/src/components/Input";
 import { router } from "expo-router";
 
 export default function New() {
-  function create() {
+  function handleCreate() {
     router.navigate("/players");
   }
 
@@ -35,7 +35,7 @@ export default function New() {
             <Input />
           </View>
 
-          <Button onPress={create}>Criar</Button>
+          <Button onPress={handleCreate}>Criar</Button>
         </View>
       </Container>
     </View>

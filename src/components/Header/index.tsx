@@ -13,14 +13,14 @@ interface HeaderProps {
 }
 
 export function Header({ hasBack }: HeaderProps) {
-  function back() {
+  function handleBack() {
     router.back();
   }
 
   return (
     <View className="justify-center items-center flex-row">
       {hasBack && (
-        <TouchableOpacity className="flex-1" onPress={back}>
+        <TouchableOpacity className="flex-1" onPress={handleBack}>
           <CaretLeft color={colors.neutral.full} size={32} />
         </TouchableOpacity>
       )}
