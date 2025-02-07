@@ -7,6 +7,7 @@ import { Highlight } from "@/src/components/Highlight";
 import { Input } from "@/src/components/Input";
 import { ListEmpty } from "@/src/components/ListEmpty";
 import { PlayerCard } from "@/src/components/PlayerCard";
+import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { View, FlatList, Text } from "react-native";
 
@@ -22,6 +23,8 @@ type Team = {
 };
 
 export default function Players() {
+  const { nameGroup } = useLocalSearchParams();
+
   const [teams, setTeams] = useState<Team[]>([
     {
       id: "1",
@@ -67,7 +70,7 @@ export default function Players() {
         <Header hasBack />
 
         <Highlight
-          title="Nome da turma"
+          title={(nameGroup as string) || ""}
           subtitle="adicione agalera e separe os times"
         />
 

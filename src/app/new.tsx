@@ -9,10 +9,19 @@ import { Button } from "@/src/components/Button";
 import { Input } from "@/src/components/Input";
 
 import { router } from "expo-router";
+import { useState } from "react";
 
 export default function New() {
+  const [nameGroup, setNameGroup] = useState("");
+
   function handleCreate() {
     router.navigate("/players");
+
+    router.push({ pathname: "/players", params: { nameGroup } });
+  }
+
+  function handleNameGroup(value: string) {
+    setNameGroup(value);
   }
 
   return (
@@ -32,7 +41,7 @@ export default function New() {
               crie uma turma para adicionar pessoas
             </Text>
 
-            <Input />
+            <Input value={nameGroup} onChangeText={handleNameGroup} />
           </View>
 
           <Button onPress={handleCreate}>Criar</Button>
