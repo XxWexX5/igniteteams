@@ -4,7 +4,12 @@ import { GROUP_COLLECTION } from "../storageConfig";
 
 import { groupsGetAll } from "./groupsGetAll";
 
-export async function groupCreate(newGroup: string) {
+type Group = {
+    id: string;
+    title: string;
+  };
+
+export async function groupCreate(newGroup: Group) {
     try {
         const storedGroups = await groupsGetAll();
 

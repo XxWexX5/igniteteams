@@ -29,32 +29,7 @@ type RouteParams = {
 export default function Players() {
   const { nameGroup } = useLocalSearchParams<RouteParams>();
 
-  const [teams, setTeams] = useState<Team[]>([
-    {
-      id: "1",
-      name: "time a",
-      isActive: false,
-      players: [{ name: "Wevison" }],
-    },
-    {
-      id: "2",
-      name: "time b",
-      isActive: false,
-      players: [],
-    },
-    {
-      id: "3",
-      name: "time c",
-      isActive: false,
-      players: [{ name: "Rodrigo" }],
-    },
-    {
-      id: "4",
-      name: "time d",
-      isActive: false,
-      players: [{ name: "Chrollo" }],
-    },
-  ]);
+  const [teams, setTeams] = useState<Team[]>([]);
 
   function handleActiveTeam(id: string) {
     const data = teams.map((team) => {
@@ -110,14 +85,14 @@ export default function Players() {
           data={teams}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => {
-            if (item.isActive && item.players.length > 0) {
+            if (item.isActive && item?.players.length > 0) {
               return <PlayerCard name={item?.players[0]?.name} />;
             }
 
             return null;
           }}
           ListEmptyComponent={({ item }) => {
-            if (item.players.length <= 0) {
+            if (item?.players?.length <= 0) {
               return <ListEmpty message="Não há pessoas neste time" />;
             }
           }}

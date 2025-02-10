@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 import { FlatList, View } from "react-native";
 
@@ -8,7 +8,8 @@ import { Highlight } from "@/src/components/Highlight";
 import { GroupCard } from "@/src/components/GroupCard";
 import { ListEmpty } from "@/src/components/ListEmpty";
 import { Button } from "@/src/components/Button";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
+import { groupsGetAll } from "../storage/group/groupsGetAll";
 
 type Group = {
   id: string;
@@ -16,18 +17,27 @@ type Group = {
 };
 
 export default function Index() {
-  const [groups, setGroups] = useState<Group[]>([
-    { id: "1", title: "Turma dos lolzeras" },
-    { id: "2", title: "Turma dos lolzeras" },
-    { id: "3", title: "Turma dos lolzeras" },
-    { id: "4", title: "Turma dos lolzeras" },
-    { id: "5", title: "Turma dos lolzeras" },
-    { id: "6", title: "Turma dos lolzeras" },
-  ]);
+  const [groups, setGroups] = useState<Group[]>([]);
 
   function handleCreateGroup() {
     router.navigate("/new");
   }
+
+  async function fetchGroups() {
+    try {
+      const data = await groupsGetAll();
+
+      setGroups(data);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchGroups();
+    }, [])
+  );
 
   return (
     <View className="flex-1 w-screen h-screen bg-neutral-600 py-[3vh]">
