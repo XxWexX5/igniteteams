@@ -1,6 +1,6 @@
 import { Container } from "@/src/components/Container";
 import { Header } from "@/src/components/Header";
-import { View, Text } from "react-native";
+import { View, Text, Alert } from "react-native";
 
 import { UsersThree } from "phosphor-react-native";
 
@@ -12,12 +12,17 @@ import { router } from "expo-router";
 import { useState } from "react";
 
 import { groupCreate } from "@storage/group/groupCreate";
+import { AppError } from "../utils/AppError";
 
 export default function New() {
   const [nameGroup, setNameGroup] = useState("");
 
   async function handleCreate() {
     try {
+      if (nameGroup.trim().length === 0) {
+        return Alert.alert("Novo grupo", "Informe o nome da turma.");
+      }
+
       const id = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
       const data = { id: id, title: nameGroup };
@@ -26,7 +31,11 @@ export default function New() {
 
       router.push({ pathname: "/players", params: { nameGroup } });
     } catch (error) {
-      throw error;
+      if (error instanceof AppError) {
+        Alert.alert("Novo grupo", error.message);
+      } else {
+        Alert.alert("Novo grupo", "Não foi possível criar um novo grupo.");
+      }
     }
   }
 

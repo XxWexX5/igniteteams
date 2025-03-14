@@ -15,7 +15,7 @@ export async function groupCreate(newGroup: Group) {
     try {
         const storedGroups = await groupsGetAll();
 
-        const groupAlreadyExists = storedGroups.includes(newGroup);
+        const groupAlreadyExists = storedGroups.filter((group: Group) => group.title === newGroup.title).length > 0;
 
         if(groupAlreadyExists) {
             throw new AppError('Já existe um grupo cadastrado com esse nome.')
