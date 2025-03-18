@@ -33,6 +33,10 @@ export default function Index() {
     }
   }
 
+  function handleOpenGroup(nameGroup: string) {
+    router.navigate(`/players?nameGroup=${nameGroup}`);
+  }
+
   useFocusEffect(
     useCallback(() => {
       fetchGroups();
@@ -51,7 +55,12 @@ export default function Index() {
             data={groups}
             showsVerticalScrollIndicator={false}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <GroupCard title={item.title} />}
+            renderItem={({ item }) => (
+              <GroupCard
+                title={item.title}
+                onPress={() => handleOpenGroup(item.title)}
+              />
+            )}
             ItemSeparatorComponent={() => <View className="h-[2vh]"></View>}
             ListEmptyComponent={() => (
               <ListEmpty message="Que tal cadastrar uma turma?" />
