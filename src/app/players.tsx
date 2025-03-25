@@ -9,7 +9,10 @@ import { ListEmpty } from "@/src/components/ListEmpty";
 import { PlayerCard } from "@/src/components/PlayerCard";
 import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import { View, FlatList, Text } from "react-native";
+import { View, FlatList, Text, Alert } from "react-native";
+import { AppError } from "../utils/AppError";
+import { playerAddByGroup } from "../storage/player/playerAddByGroup";
+import { playersGetByGroup } from "../storage/player/playersGetByGroup";
 
 type Player = {
   name: string;
@@ -27,9 +30,13 @@ type RouteParams = {
 };
 
 export default function Players() {
+  const [newPlayerName, setNewPlayerName] = useState("");
   const { nameGroup } = useLocalSearchParams<RouteParams>();
 
-  const [teams, setTeams] = useState<Team[]>([]);
+  const [teams, setTeams] = useState<Team[]>([
+    { id: "time-a", name: "TIME A", isActive: true, players: [] },
+    { id: "time-b", name: "TIME B", isActive: false, players: [] },
+  ]);
 
   function handleActiveTeam(id: string) {
     const data = teams.map((team) => {
@@ -43,6 +50,36 @@ export default function Players() {
     setTeams(data);
   }
 
+  async function handleAddPlayer() {
+    if (newPlayerName.trim().length === 0) {
+      return Alert.alert(
+        "Nova pessoa",
+        "Informe o nome da pessoa para adicionar."
+      );
+    }
+
+    const teamActived = teams.filter((team) => team.isActive)[0];
+
+    const newPlayer = {
+      name: newPlayerName,
+      team: teamActived.name,
+    };
+
+    try {
+      await playerAddByGroup(newPlayer, nameGroup);
+
+      const players = await playersGetByGroup(nameGroup);
+      console.log(players);
+    } catch (error) {
+      if (error instanceof AppError) {
+        return Alert.alert("Novo pessoa", error.message);
+      }
+
+      console.log(error);
+      Alert.alert("Nova pessoa", "Não foi possível adicionar.");
+    }
+  }
+
   return (
     <View className="flex-1 w-screen h-screen bg-neutral-600 py-[3vh]">
       <Container>
@@ -54,9 +91,13 @@ export default function Players() {
         />
 
         <View className="w-full bg-neutral-700 flex-row items-center justify-center px-[5vw] rounded-[1.5vw]">
-          <Input placeholder="Nome da pessoa" autoCorrect={false} />
+          <Input
+            onChangeText={setNewPlayerName}
+            placeholder="Nome da pessoa"
+            autoCorrect={false}
+          />
 
-          <ButtonIcon icon="add" type="primary" />
+          <ButtonIcon onPress={handleAddPlayer} icon="add" type="primary" />
         </View>
 
         <View className="flex-row items-center my-[3.5vh]">
