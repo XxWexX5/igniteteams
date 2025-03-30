@@ -1,51 +1,54 @@
-# Welcome to your Expo app 👋
+# Ignite Teams
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+![image](https://github.com/user-attachments/assets/91229318-9905-4aa6-b98d-7e37bac0b2b1)
 
-## Get started
+![image](https://github.com/user-attachments/assets/9b46c9fa-9a0b-4638-ae8e-32a0cad087ac)
 
-1. Install dependencies
 
-   ```bash
-   npm install
-   ```
+igniteTeams é uma plataforma criada para facilitar a organização de turmas em jogos competitivos. Com ela, é possível criar turmas personalizadas e separá-las automaticamente entre Time A e Time B, promovendo disputas mais equilibradas e organizadas. A aplicação permite o gerenciamento individual de participantes dentro de cada equipe, oferecendo uma visão clara da composição dos times e ajudando na tomada de decisões estratégicas. Ideal para campeonatos, treinos e partidas casuais com amigos, o igniteTeams traz mais praticidade e estrutura para a sua jogatina.
 
-2. Start the app
+## Funcionalidades
 
-   ```bash
-    npx expo start
-   ```
+- Cadastro de usuários;
+- Criação de turmas;
+- Gestão de membros e turmas;
+- Layout intuitivo;
+- Feedback visual;
 
-In the output, you'll find options to open the app in a
+## Tecnologias Utilizadas
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- React Native: Framework para desenvolvimento mobile.
+- Expo: Plataforma para desenvolvimento, compilação e deploy de aplicações React Native.
+- nativewind: Utilizado para estilização baseada no Tailwind CSS.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Como Executar o Projeto
 
-## Get a fresh project
+Siga os passos abaixo para rodar o projeto localmente:
 
-When you're ready, run:
+Pré-requisitos
 
-```bash
-npm run reset-project
-```
+Certifique-se de ter as seguintes ferramentas instaladas:
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- Node.js
+- Expo CLI
+- Um emulador Android/iOS configurado ou dispositivo físico com o app Expo Go instalado
 
-## Learn more
+### Passos:
 
-To learn more about developing your project with Expo, look at the following resources:
+- **Clone este repositório:**
+git clone [https://github.com/XxWexX5/todo-rocket](https://github.com/XxWexX5/igniteteams)
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- **Acesse a pasta do projeto:**
+cd igniteteams
 
-## Join the community
+- **Instale as dependências:**
+npm install
 
-Join our community of developers creating universal apps.
+- **Inicie o servidor de desenvolvimento:**
+npm run start
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
-# igniteteams
+- Escaneie o QR Code exibido no terminal com o aplicativo Expo Go ou abra o projeto no emulador configurado.
+
+### Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
