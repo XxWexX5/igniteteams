@@ -1,3 +1,7 @@
+import { useEffect, useState } from "react";
+import { View, FlatList, Text, Alert, Keyboard } from "react-native";
+import { useLocalSearchParams } from "expo-router";
+
 import { Button } from "@/src/components/Button";
 import { ButtonIcon } from "@/src/components/ButtonIcon";
 import { Container } from "@/src/components/Container";
@@ -7,12 +11,12 @@ import { Highlight } from "@/src/components/Highlight";
 import { Input } from "@/src/components/Input";
 import { ListEmpty } from "@/src/components/ListEmpty";
 import { PlayerCard } from "@/src/components/PlayerCard";
-import { useLocalSearchParams } from "expo-router";
-import { useState } from "react";
-import { View, FlatList, Text, Alert } from "react-native";
+
 import { AppError } from "../utils/AppError";
+
 import { playerAddByGroup } from "../storage/player/playerAddByGroup";
 import { playersGetByGroup } from "../storage/player/playersGetByGroup";
+import { playersGetsByGroupAndTeam } from "../storage/player/playersGetByGroupAndTeam";
 
 type Player = {
   name: string;
@@ -46,8 +50,34 @@ export default function Players() {
 
       return { ...team, isActive: false };
     });
-
     setTeams(data);
+  }
+
+  async function fetchPlayersByTeam() {
+    try {
+      const teamActived = teams.find((team) => team.isActive);
+      const teamNoActived = teams.find((team) => !team.isActive);
+
+      if (!teamActived || !teamNoActived) {
+        Alert.alert("Pessoas", "Times ativos/inativos não encontrados.");
+        return;
+      }
+
+      const [playersByTeamActived, playersByTeamNoActived] = await Promise.all([
+        playersGetsByGroupAndTeam(nameGroup, teamActived.name),
+        playersGetsByGroupAndTeam(nameGroup, teamNoActived.name),
+      ]);
+
+      const dataPlayers = teams.map((team) => ({
+        ...team,
+        players: team.isActive ? playersByTeamActived : playersByTeamNoActived,
+      }));
+
+      setTeams(dataPlayers);
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Pessoas", "Não foi possível buscar os jogadores.");
+    }
   }
 
   async function handleAddPlayer() {
@@ -62,14 +92,14 @@ export default function Players() {
 
     const newPlayer = {
       name: newPlayerName,
-      team: teamActived.name,
+      team: teamActived?.name,
     };
 
     try {
       await playerAddByGroup(newPlayer, nameGroup);
-
-      const players = await playersGetByGroup(nameGroup);
-      console.log(players);
+      setNewPlayerName("");
+      fetchPlayersByTeam();
+      Keyboard.dismiss();
     } catch (error) {
       if (error instanceof AppError) {
         return Alert.alert("Novo pessoa", error.message);
@@ -79,6 +109,10 @@ export default function Players() {
       Alert.alert("Nova pessoa", "Não foi possível adicionar.");
     }
   }
+
+  useEffect(() => {
+    fetchPlayersByTeam();
+  }, []);
 
   return (
     <View className="flex-1 w-screen h-screen bg-neutral-600 py-[3vh]">
@@ -93,11 +127,12 @@ export default function Players() {
         <View className="w-full bg-neutral-700 flex-row items-center justify-center px-[5vw] rounded-[1.5vw]">
           <Input
             onChangeText={setNewPlayerName}
+            value={newPlayerName}
             placeholder="Nome da pessoa"
             autoCorrect={false}
           />
 
-          <ButtonIcon onPress={handleAddPlayer} icon="add" type="primary" />
+          <ButtonIcon onPress={handleAddPlayer} icon="add" theme="primary" />
         </View>
 
         <View className="flex-row items-center my-[3.5vh]">
@@ -109,7 +144,7 @@ export default function Players() {
                 isActive={item.isActive}
                 onPress={() => handleActiveTeam(item.id)}
               >
-                {item.name}
+                {item?.name}
               </Filter>
             )}
             horizontal
@@ -118,19 +153,15 @@ export default function Players() {
           />
 
           <Text className="text-neutral-full font-bold text-sm ml-[6vw]">
-            {teams.length}
+            {teams?.filter((team) => team.isActive)[0]?.players.length}
           </Text>
         </View>
 
         <FlatList
-          data={teams}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => {
-            if (item.isActive && item?.players.length > 0) {
-              return <PlayerCard name={item?.players[0]?.name} />;
-            }
-
-            return null;
+          data={teams?.filter((team) => team.isActive)[0]?.players}
+          keyExtractor={(item) => item.name}
+          renderItem={({ item, index }) => {
+            return <PlayerCard name={item.name} />;
           }}
           ListEmptyComponent={({ item }) => {
             if (item?.players?.length <= 0) {

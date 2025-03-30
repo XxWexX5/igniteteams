@@ -10,6 +10,7 @@ import { ListEmpty } from "@/src/components/ListEmpty";
 import { Button } from "@/src/components/Button";
 import { router, useFocusEffect } from "expo-router";
 import { groupsGetAll } from "../storage/group/groupsGetAll";
+import { clearStorage } from "../storage/clearStorage";
 
 type Group = {
   id: string;
