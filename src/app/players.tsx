@@ -162,7 +162,7 @@ export default function Players() {
 
         <Highlight
           title={nameGroup}
-          subtitle="adicione agalera e separe os times"
+          subtitle="adicione a galera e separe os times"
         />
 
         <View className="w-full bg-neutral-700 flex-row items-center justify-center px-[5vw] rounded-[1.5vw] mt-[5vh]">
