@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { View, FlatList, Text, Alert, Keyboard } from "react-native";
+import { useEffect, useState, useRef } from "react";
+import { View, FlatList, Text, Alert, TextInput } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 
 import { Button } from "@/src/components/Button";
@@ -15,7 +15,6 @@ import { PlayerCard } from "@/src/components/PlayerCard";
 import { AppError } from "../utils/AppError";
 
 import { playerAddByGroup } from "../storage/player/playerAddByGroup";
-import { playersGetByGroup } from "../storage/player/playersGetByGroup";
 import { playersGetsByGroupAndTeam } from "../storage/player/playersGetByGroupAndTeam";
 
 type Player = {
@@ -36,6 +35,7 @@ type RouteParams = {
 export default function Players() {
   const [newPlayerName, setNewPlayerName] = useState("");
   const { nameGroup } = useLocalSearchParams<RouteParams>();
+  const newPlayerNameInputRef = useRef<TextInput>(null);
 
   const [teams, setTeams] = useState<Team[]>([
     { id: "time-a", name: "TIME A", isActive: true, players: [] },
@@ -99,7 +99,7 @@ export default function Players() {
       await playerAddByGroup(newPlayer, nameGroup);
       setNewPlayerName("");
       fetchPlayersByTeam();
-      Keyboard.dismiss();
+      newPlayerNameInputRef.current?.blur();
     } catch (error) {
       if (error instanceof AppError) {
         return Alert.alert("Novo pessoa", error.message);
@@ -128,8 +128,11 @@ export default function Players() {
           <Input
             onChangeText={setNewPlayerName}
             value={newPlayerName}
+            inputRef={newPlayerNameInputRef}
             placeholder="Nome da pessoa"
             autoCorrect={false}
+            onSubmitEditing={handleAddPlayer}
+            returnKeyType="done"
           />
 
           <ButtonIcon onPress={handleAddPlayer} icon="add" theme="primary" />
