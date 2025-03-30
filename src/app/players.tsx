@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { View, FlatList, Text, Alert, TextInput } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 
 import { Button } from "@/src/components/Button";
 import { ButtonIcon } from "@/src/components/ButtonIcon";
@@ -17,6 +17,7 @@ import { AppError } from "../utils/AppError";
 import { playerAddByGroup } from "@storage/player/playerAddByGroup";
 import { playersGetsByGroupAndTeam } from "@storage/player/playersGetByGroupAndTeam";
 import { playerRemoveByGroup } from "@storage/player/playerRemoveByGroup";
+import { groupRemoveByName } from "../storage/group/groupRemoveByName";
 
 type Player = {
   name: string;
@@ -121,6 +122,30 @@ export default function Players() {
     }
   }
 
+  async function removeGroup() {
+    try {
+      await groupRemoveByName(nameGroup);
+
+      router.navigate("/");
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Remover grupo", "Não foi possível remover este grupo.");
+    }
+  }
+
+  async function handleGroupRemove() {
+    Alert.alert("Remover", "Deseja remover o grupo?", [
+      { text: "Não", style: "cancel" },
+      {
+        text: "Sim",
+        style: "default",
+        onPress: () => {
+          removeGroup();
+        },
+      },
+    ]);
+  }
+
   useEffect(() => {
     fetchPlayersByTeam();
   }, []);
@@ -194,7 +219,11 @@ export default function Players() {
           ]}
         />
 
-        <Button type="secondary" className="mb-[2vh]">
+        <Button
+          type="secondary"
+          className="mb-[2vh]"
+          onPress={handleGroupRemove}
+        >
           Remover turma
         </Button>
       </Container>

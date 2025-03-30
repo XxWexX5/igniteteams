@@ -6,10 +6,10 @@ import { groupsGetAll } from "./groupsGetAll";
 
 import { AppError } from "@/src/utils/AppError";
 
-type Group = {
+export type Group = {
     id: string;
     title: string;
-  };
+};
 
 export async function groupCreate(newGroup: Group) {
     try {
