@@ -48,6 +48,10 @@ npm run start
 
 - Escaneie o QR Code exibido no terminal com o aplicativo Expo Go ou abra o projeto no emulador configurado.
 
+## Vídeo demonstrativo:
+
+https://github.com/user-attachments/assets/140ee396-4967-44cc-bf28-5ff36559c701
+
 ### Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
