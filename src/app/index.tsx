@@ -1,16 +1,16 @@
 import { useState, useCallback } from "react";
+import { router, useFocusEffect } from "expo-router";
 
 import { FlatList, View } from "react-native";
 
-import { Container } from "@/src/components/Container";
-import { Header } from "@/src/components/Header";
-import { Highlight } from "@/src/components/Highlight";
-import { GroupCard } from "@/src/components/GroupCard";
-import { ListEmpty } from "@/src/components/ListEmpty";
-import { Button } from "@/src/components/Button";
-import { router, useFocusEffect } from "expo-router";
-import { groupsGetAll } from "../storage/group/groupsGetAll";
-import { clearStorage } from "../storage/clearStorage";
+import { Container } from "@components/Container";
+import { Header } from "@components/Header";
+import { Highlight } from "@components/Highlight";
+import { GroupCard } from "@components/GroupCard";
+import { ListEmpty } from "@components/ListEmpty";
+import { Button } from "@components/Button";
+
+import { groupsGetAll } from "@storage/group/groupsGetAll";
 
 type Group = {
   id: string;

@@ -5,9 +5,10 @@ import { ButtonIcon } from "../ButtonIcon";
 
 interface PlayerCardProps {
   name: string;
+  onRemove?: () => void;
 }
 
-export function PlayerCard({ name }: PlayerCardProps) {
+export function PlayerCard({ name, onRemove }: PlayerCardProps) {
   return (
     <View className="w-full h-[6vh] bg-neutral-500 flex-row items-center mb-[2vh] rounded-[1.5vw] px-[5vw]">
       <View className="flex-1 flex-row gap-2 items-center">
@@ -18,7 +19,7 @@ export function PlayerCard({ name }: PlayerCardProps) {
         <Text className="text-md text-gray-200">{name}</Text>
       </View>
 
-      <ButtonIcon icon="close" type="secondary" />
+      <ButtonIcon icon="close" theme="secondary" onPress={onRemove} />
     </View>
   );
 }

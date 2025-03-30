@@ -1,5 +1,6 @@
-import { Container } from "@/src/components/Container";
-import { Header } from "@/src/components/Header";
+import { useState } from "react";
+import { router } from "expo-router";
+
 import { View, Text, Alert } from "react-native";
 
 import { UsersThree } from "phosphor-react-native";
@@ -7,12 +8,12 @@ import { UsersThree } from "phosphor-react-native";
 import { colors } from "@/src/theme";
 import { Button } from "@/src/components/Button";
 import { Input } from "@/src/components/Input";
+import { Container } from "@/src/components/Container";
+import { Header } from "@/src/components/Header";
 
-import { router } from "expo-router";
-import { useState } from "react";
+import { AppError } from "@utils/AppError";
 
 import { groupCreate } from "@storage/group/groupCreate";
-import { AppError } from "../utils/AppError";
 
 export default function New() {
   const [nameGroup, setNameGroup] = useState("");
