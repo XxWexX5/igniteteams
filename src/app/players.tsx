@@ -2,22 +2,23 @@ import { useEffect, useState, useRef } from "react";
 import { View, FlatList, Text, Alert, TextInput } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 
-import { Button } from "@/src/components/Button";
-import { ButtonIcon } from "@/src/components/ButtonIcon";
-import { Container } from "@/src/components/Container";
-import { Filter } from "@/src/components/Filter";
-import { Header } from "@/src/components/Header";
-import { Highlight } from "@/src/components/Highlight";
-import { Input } from "@/src/components/Input";
-import { ListEmpty } from "@/src/components/ListEmpty";
-import { PlayerCard } from "@/src/components/PlayerCard";
+import { Button } from "@components/Button";
+import { ButtonIcon } from "@components/ButtonIcon";
+import { Container } from "@components/Container";
+import { Filter } from "@components/Filter";
+import { Header } from "@components/Header";
+import { Highlight } from "@components/Highlight";
+import { Input } from "@components/Input";
+import { ListEmpty } from "@components/ListEmpty";
+import { PlayerCard } from "@components/PlayerCard";
+import { Loading } from "@components/Loading";
 
 import { playerAddByGroup } from "@storage/player/playerAddByGroup";
 import { playersGetsByGroupAndTeam } from "@storage/player/playersGetByGroupAndTeam";
 import { playerRemoveByGroup } from "@storage/player/playerRemoveByGroup";
 import { groupRemoveByName } from "@storage/group/groupRemoveByName";
 
-import { AppError } from "../utils/AppError";
+import { AppError } from "@utils/AppError";
 
 type Player = {
   name: string;
@@ -35,6 +36,7 @@ type RouteParams = {
 };
 
 export default function Players() {
+  const [isLoading, setIsLoading] = useState(true);
   const [newPlayerName, setNewPlayerName] = useState("");
   const { nameGroup } = useLocalSearchParams<RouteParams>();
   const newPlayerNameInputRef = useRef<TextInput>(null);
@@ -57,6 +59,7 @@ export default function Players() {
 
   async function fetchPlayersByTeam() {
     try {
+      setIsLoading(true);
       const teamActived = teams.find((team) => team.isActive);
       const teamNoActived = teams.find((team) => !team.isActive);
 
@@ -79,6 +82,8 @@ export default function Players() {
     } catch (error) {
       console.log(error);
       Alert.alert("Pessoas", "Não foi possível buscar os jogadores.");
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -134,7 +139,7 @@ export default function Players() {
   }
 
   async function handleGroupRemove() {
-    Alert.alert("Remover", "Deseja remover o grupo?", [
+    Alert.alert("Remover", "Deseja remover a turma?", [
       { text: "Não", style: "cancel" },
       {
         text: "Sim",
@@ -160,7 +165,7 @@ export default function Players() {
           subtitle="adicione agalera e separe os times"
         />
 
-        <View className="w-full bg-neutral-700 flex-row items-center justify-center px-[5vw] rounded-[1.5vw]">
+        <View className="w-full bg-neutral-700 flex-row items-center justify-center px-[5vw] rounded-[1.5vw] mt-[5vh]">
           <Input
             onChangeText={setNewPlayerName}
             value={newPlayerName}
@@ -174,7 +179,7 @@ export default function Players() {
           <ButtonIcon onPress={handleAddPlayer} icon="add" theme="primary" />
         </View>
 
-        <View className="flex-row items-center my-[3.5vh]">
+        <View className="flex-row items-center mt-[3.5vh]">
           <FlatList
             data={teams}
             keyExtractor={(item) => item.id}
@@ -196,28 +201,33 @@ export default function Players() {
           </Text>
         </View>
 
-        <FlatList
-          data={teams?.filter((team) => team.isActive)[0]?.players}
-          keyExtractor={(item) => item.name}
-          renderItem={({ item, index }) => {
-            return (
-              <PlayerCard
-                name={item.name}
-                onRemove={() => handleRemovePlayer(item.name)}
-              />
-            );
-          }}
-          ListEmptyComponent={({ item }) => {
-            if (item?.players?.length <= 0) {
-              return <ListEmpty message="Não há pessoas neste time" />;
-            }
-          }}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={[
-            { paddingBottom: 100 },
-            teams.length === 0 && { flex: 1 },
-          ]}
-        />
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <FlatList
+            className="mt-[3.5vh]"
+            data={teams?.filter((team) => team.isActive)[0]?.players}
+            keyExtractor={(item) => item.name}
+            renderItem={({ item, index }) => {
+              return (
+                <PlayerCard
+                  name={item.name}
+                  onRemove={() => handleRemovePlayer(item.name)}
+                />
+              );
+            }}
+            ListEmptyComponent={({ item }) => {
+              if (item?.players?.length <= 0) {
+                return <ListEmpty message="Não há pessoas neste time" />;
+              }
+            }}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={[
+              { paddingBottom: 100 },
+              teams.length === 0 && { flex: 1 },
+            ]}
+          />
+        )}
 
         <Button
           type="secondary"

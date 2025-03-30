@@ -7,7 +7,7 @@ interface HighlightProps {
 
 export function Highlight({ title, subtitle }: HighlightProps) {
   return (
-    <View className="w-full my-[5vh] gap-[.85vh]">
+    <View className="w-full mt-[5vh] gap-[.85vh]">
       <Text className="text-neutral-full text-center text-xl font-bold">
         {title}
       </Text>

@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { router, useFocusEffect } from "expo-router";
 
-import { FlatList, View } from "react-native";
+import { Alert, FlatList, View } from "react-native";
 
 import { Container } from "@components/Container";
 import { Header } from "@components/Header";
@@ -9,15 +9,13 @@ import { Highlight } from "@components/Highlight";
 import { GroupCard } from "@components/GroupCard";
 import { ListEmpty } from "@components/ListEmpty";
 import { Button } from "@components/Button";
+import { Loading } from "@components/Loading";
 
 import { groupsGetAll } from "@storage/group/groupsGetAll";
-
-type Group = {
-  id: string;
-  title: string;
-};
+import { Group } from "@storage/group/groupCreate";
 
 export default function Index() {
+  const [isLoading, setIsLoading] = useState(true);
   const [groups, setGroups] = useState<Group[]>([]);
 
   function handleCreateGroup() {
@@ -26,11 +24,15 @@ export default function Index() {
 
   async function fetchGroups() {
     try {
+      setIsLoading(true);
       const data = await groupsGetAll();
 
       setGroups(data);
     } catch (error) {
-      throw error;
+      console.log(error);
+      Alert.alert("Carregar turmas", "Não foi possível carregar as turmas.");
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -51,24 +53,30 @@ export default function Index() {
 
         <Highlight title="Turmas" subtitle="jogue com a sua turma" />
 
-        <View className="flex-1 mb-[3vh]">
-          <FlatList
-            data={groups}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => (
-              <GroupCard
-                title={item.title}
-                onPress={() => handleOpenGroup(item.title)}
-              />
-            )}
-            ItemSeparatorComponent={() => <View className="h-[2vh]"></View>}
-            ListEmptyComponent={() => (
-              <ListEmpty message="Que tal cadastrar uma turma?" />
-            )}
-            contentContainerStyle={groups.length === 0 && { flex: 1 }}
-          />
-        </View>
+        {isLoading ? (
+          <View className="flex-1">
+            <Loading />
+          </View>
+        ) : (
+          <View className="flex-1 mb-[3vh] mt-[5vh]">
+            <FlatList
+              data={groups}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => (
+                <GroupCard
+                  title={item.title}
+                  onPress={() => handleOpenGroup(item.title)}
+                />
+              )}
+              ItemSeparatorComponent={() => <View className="h-[2vh]"></View>}
+              ListEmptyComponent={() => (
+                <ListEmpty message="Que tal cadastrar uma turma?" />
+              )}
+              contentContainerStyle={groups.length === 0 && { flex: 1 }}
+            />
+          </View>
+        )}
 
         <Button onPress={handleCreateGroup}>Criar nova turma</Button>
       </Container>
