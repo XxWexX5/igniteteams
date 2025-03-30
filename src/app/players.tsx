@@ -12,12 +12,12 @@ import { Input } from "@/src/components/Input";
 import { ListEmpty } from "@/src/components/ListEmpty";
 import { PlayerCard } from "@/src/components/PlayerCard";
 
-import { AppError } from "../utils/AppError";
-
 import { playerAddByGroup } from "@storage/player/playerAddByGroup";
 import { playersGetsByGroupAndTeam } from "@storage/player/playersGetByGroupAndTeam";
 import { playerRemoveByGroup } from "@storage/player/playerRemoveByGroup";
-import { groupRemoveByName } from "../storage/group/groupRemoveByName";
+import { groupRemoveByName } from "@storage/group/groupRemoveByName";
+
+import { AppError } from "../utils/AppError";
 
 type Player = {
   name: string;
