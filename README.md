@@ -2,8 +2,7 @@
 
 ![image](https://github.com/user-attachments/assets/91229318-9905-4aa6-b98d-7e37bac0b2b1)
 
-![image](https://github.com/user-attachments/assets/9b46c9fa-9a0b-4638-ae8e-32a0cad087ac)
-
+![image](https://github.com/user-attachments/assets/73ac4529-9253-4512-b65c-5f5d1f2d2cd4)
 
 igniteTeams é uma plataforma criada para facilitar a organização de turmas em jogos competitivos. Com ela, é possível criar turmas personalizadas e separá-las automaticamente entre Time A e Time B, promovendo disputas mais equilibradas e organizadas. A aplicação permite o gerenciamento individual de participantes dentro de cada equipe, oferecendo uma visão clara da composição dos times e ajudando na tomada de decisões estratégicas. Ideal para campeonatos, treinos e partidas casuais com amigos, o igniteTeams traz mais praticidade e estrutura para a sua jogatina.
 
